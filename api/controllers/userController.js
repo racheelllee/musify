@@ -82,6 +82,10 @@ function updateUser(req, res){
 	//tomamps el id que viene en la url
 	var userId = req.params.id;
 	var update = req.body;
+	//para no modificar el registro de otra persona
+	if (userId != req.user.sub) {
+		return res.status(500).send({message:'No tiene permisos para modificar este usuario'});
+	}
 	User.findByIdAndUpdate(userId, update, (err, userUpdated)=>{
 		if(err){
 			console.log('errores');
@@ -99,15 +103,15 @@ function updateUser(req, res){
 
 function uploadImagen(req, res){
 	var userId = req.params.id;
-	var file_name = 'No subido...'
+	var file_name = 'No subido...';
 	if (req.files) {
-		var file_path = req.files.imagen.path;
+		var file_path = req.files.image.path;
 		var file_split = file_path.split('\\');
 		var file_name = file_split[2]; 
 		var file_ext = file_name.split('.')[1];
 		if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif' ){
 			User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) =>{
-				if (!userUpdated) {
+				if(!userUpdated) {
 					res.status(404).send({message:'No se ha podido actualizar el usuario'});
 				}else{
 					res.status(200).send({image:file_name, user: userUpdated});

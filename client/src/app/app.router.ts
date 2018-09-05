@@ -6,7 +6,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 const APP_ROUTES: Routes = [
 	{path:'home', component: UserEditComponent},
-	{path:'show', component: UserEditComponent},
+	{path:'mis-datos', component: UserEditComponent},
 	{ path:'**', pathMatch:'full', redirectTo:'home'}
 ];
 

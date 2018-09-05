@@ -1,4 +1,49 @@
 <div class="col-md-6" *ngIf="identity">
+	<hr>
+	<hr>
 	<h1>{{titulo}}</h1>
 	<!--Formulario-->
+	<div class="container" *ngIf="identity">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>Actualizar</h1>
+				<div *ngIf="alertMessage">
+					<div class="alert alert-danger" role="alert">
+					   {{alertMessage}}
+					</div>
+				</div>
+				<form class="col-md-10" #userUpdateForm="ngForm" (submit)="onSubmit()">
+					<p>
+						<label>Name</label>
+						<input type="text" #name="ngModel" [(ngModel)]="user.name" class="form-control" name="name" required>
+						<span class="text-danger" *ngIf="!name.valid && name.touched">
+							El nombre es requerido
+						</span>
+					</p>
+					<p>
+						<label>Surname</label>
+						<input type="text" #surname="ngModel" [(ngModel)]="user.surname" class="form-control" name="surname" required>
+						<span class="text-danger" *ngIf="!surname.valid && surname.touched">
+							El apellido es requerido
+						</span>
+					</p>
+					<p>
+						<label>email</label>
+						<input type="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" name="email" required>
+						<span class="text-danger" *ngIf="!email.valid && email.touched">
+							El email es requerido
+						</span>
+					</p>
+					<div class="image-for-edit" *ngIf="user.image && user.image != null">
+						<img src="">
+					</div>
+					<p>
+						<label>Sube tu foto:</label>
+						<input type="file" placeholder="seleccionar imagen..." (change)="fileChangeEvent($event)" />
+					</p>
+					<input type="submit" value="Actualizar" class="btn btn-primary" name="">
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,18 +1,17 @@
-<div class="col-md-6" *ngIf="identity">
+
+<div class="col-md-3 pull-right" *ngIf="identity">
 	<hr>
 	<hr>
-	<h1>{{titulo}}</h1>
 	<!--Formulario-->
-	<div class="container" *ngIf="identity">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-11">
 				<h1>Actualizar</h1>
 				<div *ngIf="alertMessage">
 					<div class="alert alert-danger" role="alert">
 					   {{alertMessage}}
 					</div>
 				</div>
-				<form class="col-md-10" #userUpdateForm="ngForm" (submit)="onSubmit()">
+				<form class="col-md-12" #userUpdateForm="ngForm" (submit)="onSubmit()">
 					<p>
 						<label>Name</label>
 						<input type="text" #name="ngModel" [(ngModel)]="user.name" class="form-control" name="name" required>
@@ -35,7 +34,7 @@
 						</span>
 					</p>
 					<div class="image-for-edit" *ngIf="user.image && user.image != null">
-						<img src="">
+						<img src="{{url + 'get-image-user/' + user.image}}" style="width:50%;">
 					</div>
 					<p>
 						<label>Sube tu foto:</label>
@@ -45,5 +44,4 @@
 				</form>
 			</div>
 		</div>
-	</div>
 </div>

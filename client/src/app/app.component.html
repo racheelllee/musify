@@ -1,41 +1,50 @@
-<nav *ngIf="identity" class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">{{title}}</a>
+	<div class="col-lg-1 navigation"  *ngIf="identity">
+		<h1 class="head-title">
+			<a class="fa fa-music" [routerLink]="['/']">
+				{{title | uppercase}}
+			</a>
+		</h1>
+		<nav id="navigation">
+			<a href="" [routerLinkActive]="['actived']">
+				<span class="fa fa-search" aria-hidden="true"></span>
+				Buscar
+			</a>
+			<a [routerLink]="['/artist', 1]" [routerLinkActive]="['actived']">
+				<span class="fa fa-star" aria-hidden="true"></span>
+				Artistas
+			</a>
+			<a href="" [routerLinkActive]="['actived']">
+				<span class="fa fa-book" aria-hidden="true"></span>
+				Albums
+			</a>
+		</nav>
+		<nav id="user-logged">
+			<div class="user-image" >
+				<img src="{{url + 'get-image-user/' + identity.image}}" id='img-logged'>
+			</div>
 
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
+			<a href="#" id="identity_name" [routerLinkActive]="['actived']">
+				<span aria-hidden="true"></span>
+				{{ identity.name }}
+			</a>
 
-	<div class="collapse navbar-collapse" id="navbarNav">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-			 	<a class="nav-link" href="#">artistas<span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">albums</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link"  id="identity_name" href="#">{{ identity.name | uppercase }}</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" [routerLink]="['/mis-datos']">mis datos</a>
-			</li>
-		</ul>
-		<span class="btn btn-warning float-right" (click)="logOut()">
-			Desconectarse
-		</span>
-		
+
+			<a  [routerLink]="['/mis-datos']" [routerLinkActive]="['actived']">
+				<span class="fa fa-cog" aria-hidden="true"></span>
+				mis datos
+			</a>
+			<a (click)="logOut()" class="btn-logout">
+				<span class="fa fa-sign-out-alt" aria-hidden="true"></span>
+				salir
+			</a>
+		</nav>
 	</div>
-</nav>
-
-<div class="clearfix"></div>
-
-<div *ngIf="identity" class="central col-lg-11">
-	<p>Estas Logueado en la aplicacion</p>
-	<router-outlet></router-outlet>
-</div>
-
-<div class="container" *ngIf="!identity">
-	<div class="row">
+	<div *ngIf="identity" class="central col-lg-11">
+		<p>Estas Logueado en la aplicacion</p>
+		<router-outlet></router-outlet>
+	</div>
+	<div class="col-lg-11" *ngIf="!identity">
+		<div class="row">
 		<div class="col-lg-6">
 			<div class="col-lg-12">
 				<h1>Identificate</h1>
@@ -88,7 +97,7 @@
 					<span class="text-danger" *ngIf="!email.valid && email.touched">
 						El email es requerido
 					</span>
-				</p>   
+				</p>
 				<p>
 					<label>password</label>
 					<input type="password" class="form-control" #password="ngModel" [(ngModel)]="user_register.password" name="password">
@@ -100,4 +109,4 @@
 			</form>
 		</div>
 	</div>
-</div>
+	</div>

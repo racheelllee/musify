@@ -1,0 +1,8 @@
+<p>
+  artist-list aqui llega
+</p>
+<div class="head-page" *ngIf="identity">
+  <h1>{{titulo}}</h1>
+  <a href="#" *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn btn-secondary  btn-lg active" role="button" aria-pressed="true">Anadir Artista</a>
+
+</div>

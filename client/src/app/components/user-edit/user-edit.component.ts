@@ -15,10 +15,11 @@ export class UserEditComponent implements OnInit {
 	public identity;
 	public token;
 	public alertMessage;
-	public fileUpload = Array<File>;
+  public  url: string;
+	public fileUpload: Array<File>;
 
 
-	constructor(private _userService:UserService) { 
+	constructor(private _userService:UserService) {
 		this.titulo = 'Actualizar mis datos';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
@@ -47,10 +48,13 @@ export class UserEditComponent implements OnInit {
 							(result:any)=>{
 								this.user.image = result.image;
 								localStorage.setItem('identity', JSON.stringify(this.user));
-								console.log(this.user);
+								let image_path = this.url+'get-image-user/'+this.user.image;
+								console.log(image_path);
+								document.getElementById('img-logged').setAttribute('src', image_path);
 							}
 						);
 					}
+					this.alertMessage = 'Datos actualizados correctamente';
 				}
 			},
 			error=>{
@@ -67,10 +71,12 @@ export class UserEditComponent implements OnInit {
 
 
 	fileChangeEvent(fileInput:any){
+    //recoge el valor del input
 		this.fileUpload = <Array<File>>fileInput.target.files;
 	}
 
-	makeFilesRequest(url:string, params:Array<string>, files:Array<file>){
+  //ajax q recoge la imagen
+	makeFilesRequest(url:string, params:Array<string>, files:Array<File>){
 		var token = this.token;
 		return new Promise((resolve, reject)=>{
 			var formData:any = new FormData();
@@ -89,16 +95,10 @@ export class UserEditComponent implements OnInit {
 
 				}
 			}
-
 			xhr.open('POST', url, true);
 			xhr.setRequestHeader('Authorization', token);
 			xhr.send(formData);
 		});
 	}
 
-
-
-
 }
-
-
